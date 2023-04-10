@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phone Number to Word Combinations</title>
+</head>
+<body>
+  <h1>Phone Number to Word Combinations</h1>
+  <form id="phone-number-form">
+    <label for="phone-number">Enter a 7-digit phone number:</label>
+    <input type="text" id="phone-number" name="phone-number" pattern="[0-9]{7}" required>
+    <button type="submit">Find Word Combinations</button>
+  </form>
+  <h2>Composed Strings:</h2>
+  <ul id="composed-strings"></ul>
+
+  <script src="index.js"></script>
+  <script>
+    const form = document.getElementById('phone-number-form');
+    const composedStringsList = document.getElementById('composed-strings');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const phoneNumber = form.elements['phone-number'].value;
+
+      // Example English words array
+      const englishWords = ["CALL", "ME", "A", "BAT", "CAT", "BE", "CAKE", "OAT", "WORK", "BELL", "LORD"];
+      const composedStrings = findComposedStringsFromPhoneNumber(phoneNumber, englishWords);
+
+      composedStringsList.innerHTML = '';
+      for (const str of composedStrings) {
+        const listItem = document.createElement('li');
+        listItem.textContent = str;
+        composedStringsList.appendChild(listItem);
+      }
+    });
+  </script>
+</body>
+</html>
