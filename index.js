@@ -115,6 +115,14 @@ function wrapWordsInSpan(inputString) {
   return wrappedWords.join(' ');
 }
 
+function capitalizeFirstLetterOfEachWord(str) {
+  return str
+    .toLowerCase()
+    .split(' ')
+    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
 // Example usage
 /* const phoneNumber = "2255632"; // Example: "CALLMEA"
 

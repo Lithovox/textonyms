@@ -7,7 +7,7 @@
 </head>
 <body>
   <h1>Textonyms</h1>
-  <h2>Convert a phone number to words</h2>
+  <h2>Convert Phone Number to Words</h2>
   <form id="phone-number-form">
     <label for="phone-number">Enter a phone number (digits only):</label>
     <input type="text" id="phone-number" name="phone-number" pattern="[0-9]{1,}" required>
@@ -18,7 +18,7 @@
     <button type="submit">Find Word Combinations</button>
   </form>
   <h2>Composed Strings:</h2>
-  <ul id="composed-strings"></ul>
+  <ul id="composed-strings">Enter a phone number and click "Find Word Combinations" to begin!</ul>
 
   <script src="wordList.js"></script>
   <script src="index.js"></script>
@@ -31,7 +31,6 @@
       const phoneNumber = form.elements['phone-number'].value;
       const excludedWords = form.elements['exclusions'].value;
 
-      // Example English words array
       const composedStrings = sortStringsBySpaces(removeSentencesWithWords(findComposedStringsFromPhoneNumber(phoneNumber, englishWords), excludedWords.toUpperCase()));
 
       composedStringsList.innerHTML = '';
@@ -41,11 +40,23 @@
       
         for (const str of composedStrings) {
             const listItem = document.createElement('li');
-            listItem.innerHTML = wrapWordsInSpan(str);
+            listItem.innerHTML = wrapWordsInSpan(capitalizeFirstLetterOfEachWord(str));
             composedStringsList.appendChild(listItem);
         }
         }
     });
+    document.addEventListener('click', function(event) {
+    if (event.target.tagName.toLowerCase() === 'span') {
+      const word = event.target.textContent;
+      const listItems = document.querySelectorAll('#composed-strings li');
+
+      listItems.forEach(function(listItem) {
+        if (listItem.textContent.includes(word)) {
+          listItem.remove();
+        }
+      });
+    }
+  });
   </script>
 </body>
 </html>
