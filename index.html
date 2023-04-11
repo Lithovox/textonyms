@@ -12,13 +12,14 @@
   <form id="phone-number-form">
     <label for="phone-number">Enter a phone number (digits only):</label>
     <input type="text" id="phone-number" name="phone-number" pattern="[0-9]{1,}" required>
-    <br>
-    <label for="exclusions">Enter words you do not want to see (separated by commas):</label>
-    <input type="text" id="exclusions" name="exclusions" optional>
-    <br>
+
+    <label for="exclusions">Enter words to remove from the results (separated by commas), or click any unwanted words in the results below to remove:</label>
+    <textarea id="exclusions" name="exclusions" optional></textarea>
+
     <button type="submit">Find Word Combinations</button>
   </form>
-  <h2>Composed Strings:</h2>
+  <br>
+  <u><h2>Results:</h2></u>
   <ul id="composed-strings">Enter a phone number and click "Find Word Combinations" to begin!</ul>
 
   <script src="wordList.js"></script>
@@ -53,7 +54,7 @@
       const listItems = document.querySelectorAll('#composed-strings li');
 
         // Get the 'exclusions' element in the form
-        let exclusionsElement = form.elements['exclusions'];
+        let exclusionsElement = document.getElementById('exclusions');
 
         // Check if the exclusions value is empty
         if (exclusionsElement.value === '') {
