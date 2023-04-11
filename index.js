@@ -38,10 +38,12 @@ function getLetterCombinations(digits) {
 function isWordComposedOfWords(word, wordsSet) {
   const wordLength = word.length;
 
-  // Base case: if the word length is 0, return an empty array
+  // Base case: if the word length is 0, return an array containing an empty array
   if (wordLength === 0) {
-    return [];
+    return [[]];
   }
+
+  const validCombinations = [];
 
   // Iterate through the word and check if the left part is in the wordsSet and the right part can be composed of words from the wordsSet
   for (let i = 1; i <= wordLength; i++) {
@@ -49,14 +51,14 @@ function isWordComposedOfWords(word, wordsSet) {
     const right = word.slice(i);
 
     if (wordsSet.has(left)) {
-      const remainingWords = isWordComposedOfWords(right, wordsSet);
-      if (remainingWords !== false) {
-        return [left, ...remainingWords];
+      const remainingCombinations = isWordComposedOfWords(right, wordsSet);
+      for (const remainingWords of remainingCombinations) {
+        validCombinations.push([left, ...remainingWords]);
       }
     }
   }
 
-  return false;
+  return validCombinations;
 }
 
 function findComposedStringsFromPhoneNumber(phoneNumber, words) {
@@ -65,8 +67,8 @@ function findComposedStringsFromPhoneNumber(phoneNumber, words) {
   const composedStrings = [];
 
   for (const str of letterCombinations) {
-    const wordsInStr = isWordComposedOfWords(str, wordsSet);
-    if (wordsInStr !== false) {
+    const validCombinations = isWordComposedOfWords(str, wordsSet);
+    for (const wordsInStr of validCombinations) {
       composedStrings.push(wordsInStr.join(' '));
     }
   }

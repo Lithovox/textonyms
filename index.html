@@ -13,13 +13,13 @@
     <label for="phone-number">Enter a phone number (digits only):</label>
     <input type="text" id="phone-number" name="phone-number" pattern="[0-9]{1,}" required>
 
-    <label for="exclusions">Optional: Enter words to remove from the results (separated by commas), or click any unwanted words in the results below to remove.</label>
+    <label for="exclusions">Optional: Enter words to remove from the results (separated by commas), or click any unwanted words in the results below to remove them.</label>
     <textarea id="exclusions" name="exclusions" optional></textarea>
 
     <button type="submit">Find Word Combinations</button>
   </form>
   <br>
-  <u><h2>Results:</h2></u>
+  <u><h2 id="resultsHeader">Results:</h2></u>
   <ul id="composed-strings">Enter a phone number and click "Find Word Combinations" to begin!</ul>
 
   <script src="wordList.js"></script>
@@ -29,23 +29,24 @@
     const composedStringsList = document.getElementById('composed-strings');
 
     form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const phoneNumber = form.elements['phone-number'].value;
-      const excludedWords = form.elements['exclusions'].value;
+        event.preventDefault();
+        const phoneNumber = form.elements['phone-number'].value;
+        const excludedWords = form.elements['exclusions'].value;
 
-      const composedStrings = sortStringsBySpaces(removeSentencesWithWords(findComposedStringsFromPhoneNumber(phoneNumber, englishWords), excludedWords.toUpperCase()));
+        const composedStrings = sortStringsBySpaces(removeSentencesWithWords(findComposedStringsFromPhoneNumber(phoneNumber, englishWords), excludedWords.toUpperCase()));
 
-      composedStringsList.innerHTML = '';
-      if (composedStrings.length == 0) {
-        composedStringsList.innerHTML = 'No results found!';
-      } else {
-      
-        for (const str of composedStrings) {
-            const listItem = document.createElement('li');
-            listItem.innerHTML = wrapWordsInSpan(capitalizeFirstLetterOfEachWord(str));
-            composedStringsList.appendChild(listItem);
-        }
-        }
+        composedStringsList.innerHTML = '';
+        if (composedStrings.length == 0) {
+            composedStringsList.innerHTML = 'No results found!';
+        } else {
+        
+            for (const str of composedStrings) {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = wrapWordsInSpan(capitalizeFirstLetterOfEachWord(str));
+                composedStringsList.appendChild(listItem);
+            }
+            }
+        document.getElementById("resultsHeader").textContent = "Results: " + document.getElementById("composed-strings").getElementsByTagName("li").length;
     });
     document.addEventListener('click', function(event) {
     if (event.target.tagName.toLowerCase() === 'span') {
@@ -57,7 +58,7 @@
         let exclusionsElement = document.getElementById('exclusions');
 
         // Check if the exclusions value is empty
-        if (exclusionsElement.value === '') {
+        if (!(/[a-zA-Z]/.test(exclusionsElement.value))) {
             // If empty, set the value to the input word
             exclusionsElement.value = word;
         } else {
@@ -70,6 +71,7 @@
           listItem.remove();
         }
       });
+      document.getElementById("resultsHeader").textContent = "Results: " + document.getElementById("composed-strings").getElementsByTagName("li").length;
     }
   });
   </script>
