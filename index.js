@@ -74,9 +74,51 @@ function findComposedStringsFromPhoneNumber(phoneNumber, words) {
   return composedStrings;
 }
 
+function sortStringsBySpaces(arr) {
+  // Helper function to count spaces in a string
+  function countSpaces(str) {
+    return (str.match(/ /g) || []).length;
+  }
+
+  // Sort the input array based on the number of spaces in each string
+  arr.sort(function(a, b) {
+    return countSpaces(a) - countSpaces(b);
+  });
+
+  return arr;
+}
+
+function removeSentencesWithWords(sentences, words) {
+  //helper function which removes entries from an array that contain words included in a comma-separated word string
+  const wordSet = new Set(words.split(',').map(word => word.trim()));
+
+  return sentences.filter(sentence => {
+    const sentenceWords = new Set(sentence.split(' ').map(word => word.trim()));
+    for (const word of wordSet) {
+      if (sentenceWords.has(word)) {
+        return false;
+      }
+    }
+    return true;
+  });
+}
+
+function wrapWordsInSpan(inputString) {
+  //helper function which puts span tags around every word in a string
+  if (typeof inputString !== 'string') {
+    throw new Error('Input must be a string');
+  }
+
+  const words = inputString.split(' ');
+  const wrappedWords = words.map(word => `<span>${word}</span>`);
+
+  return wrappedWords.join(' ');
+}
+
 // Example usage
-const phoneNumber = "2255632"; // Example: "CALLMEA"
-const englishWords = ["CALL", "ME", "A", "BAT", "CAT", "BE", "CAKE", "OAT", "WORK", "BELL", "LORD"];
+/* const phoneNumber = "2255632"; // Example: "CALLMEA"
 
 const composedStrings = findComposedStringsFromPhoneNumber(phoneNumber, englishWords);
 console.log(composedStrings);
+ */
+

@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phone Number to Word Combinations</title>
+  <title>Textonyms</title>
 </head>
 <body>
-  <h1>Phone Number to Word Combinations</h1>
+  <h1>Textonyms</h1>
+  <h2>Convert a phone number to words</h2>
   <form id="phone-number-form">
-    <label for="phone-number">Enter a 7-digit phone number:</label>
-    <input type="text" id="phone-number" name="phone-number" pattern="[0-9]{7}" required>
+    <label for="phone-number">Enter a phone number (digits only):</label>
+    <input type="text" id="phone-number" name="phone-number" pattern="[0-9]{1,}" required>
+    <br>
+    <label for="exclusions">Enter words you do not want to see (separated by commas):</label>
+    <input type="text" id="exclusions" name="exclusions" optional>
+    <br>
     <button type="submit">Find Word Combinations</button>
   </form>
   <h2>Composed Strings:</h2>
   <ul id="composed-strings"></ul>
 
+  <script src="wordList.js"></script>
   <script src="index.js"></script>
   <script>
     const form = document.getElementById('phone-number-form');
@@ -23,17 +29,22 @@
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const phoneNumber = form.elements['phone-number'].value;
+      const excludedWords = form.elements['exclusions'].value;
 
       // Example English words array
-      const englishWords = ["CALL", "ME", "A", "BAT", "CAT", "BE", "CAKE", "OAT", "WORK", "BELL", "LORD"];
-      const composedStrings = findComposedStringsFromPhoneNumber(phoneNumber, englishWords);
+      const composedStrings = sortStringsBySpaces(removeSentencesWithWords(findComposedStringsFromPhoneNumber(phoneNumber, englishWords), excludedWords.toUpperCase()));
 
       composedStringsList.innerHTML = '';
-      for (const str of composedStrings) {
-        const listItem = document.createElement('li');
-        listItem.textContent = str;
-        composedStringsList.appendChild(listItem);
-      }
+      if (composedStrings.length == 0) {
+        composedStringsList.innerHTML = 'No results found!';
+      } else {
+      
+        for (const str of composedStrings) {
+            const listItem = document.createElement('li');
+            listItem.innerHTML = wrapWordsInSpan(str);
+            composedStringsList.appendChild(listItem);
+        }
+        }
     });
   </script>
 </body>
