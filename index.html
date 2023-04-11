@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
   <title>Textonyms</title>
 </head>
 <body>
@@ -47,8 +48,21 @@
     });
     document.addEventListener('click', function(event) {
     if (event.target.tagName.toLowerCase() === 'span') {
+
       const word = event.target.textContent;
       const listItems = document.querySelectorAll('#composed-strings li');
+
+        // Get the 'exclusions' element in the form
+        let exclusionsElement = form.elements['exclusions'];
+
+        // Check if the exclusions value is empty
+        if (exclusionsElement.value === '') {
+            // If empty, set the value to the input word
+            exclusionsElement.value = word;
+        } else {
+            // If not empty, append the input word with a comma separator
+            exclusionsElement.value = exclusionsElement.value + ', ' + word;
+        }
 
       listItems.forEach(function(listItem) {
         if (listItem.textContent.includes(word)) {
