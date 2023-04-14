@@ -91,8 +91,9 @@ function sortStringsBySpaces(arr) {
 }
 
 function removeSentencesWithWords(sentences, words) {
-  //helper function which removes entries from an array that contain words included in a comma-separated word string
-  const wordSet = new Set(words.split(',').map(word => word.trim()));
+  //helper function which removes entries from an array that contain words included in a word string with any non-alphanumeric separator
+  const wordSet = new Set(words.split(/[^a-zA-Z]+/).map(word => word.trim()));
+  console.log(wordSet);
 
   return sentences.filter(sentence => {
     const sentenceWords = new Set(sentence.split(' ').map(word => word.trim()));

@@ -9,14 +9,14 @@
 </head>
 <body>
   <h1>Textonyms</h1>
-  <h2>Convert Phone Number to Words</h2>
+  <h2>Convert Phone Numbers to Words</h2>
 
   <form id="phone-number-form">
-    <label for="phone-number">Enter a phone number:</label>
-    <input type="text" id="phone-number" name="phone-number" placeholder="9327483" required>
+    <label for="phone-number">Enter a phone number (or phone word) in any format:</label>
+    <input type="text" id="phone-number" name="phone-number" placeholder="e.g. 932-7483" required>
 
-    <label for="exclusions">Optional: Enter words to remove from the results (separated by commas), or click any unwanted words in the results below to remove them.</label>
-    <textarea id="exclusions" name="exclusions" optional></textarea>
+    <label for="exclusions">Optional: Enter words to remove from the results, or click any unwanted words in the results below to remove them.</label>
+    <textarea id="exclusions" name="exclusions" placeholder="e.g. word1, word2"optional></textarea>
 
     <button type="submit">Find Word Combinations</button>
   </form>
@@ -39,7 +39,13 @@
 
         composedStringsList.innerHTML = '';
         if (composedStrings.length == 0) {
-            composedStringsList.innerHTML = 'No results found!';
+            if (phoneNumber.includes("0") || phoneNumber.includes("1"))
+            {
+                composedStringsList.innerHTML = 'No results found, \n possibly since 0 and 1 don\'t contain any letters :(';
+            } else
+            {
+                composedStringsList.innerHTML = 'No results found :(';
+            }
         } else {
         
             for (const str of composedStrings) {
@@ -60,12 +66,12 @@
         let exclusionsElement = document.getElementById('exclusions');
 
         // Check if the exclusions value is empty
-        if (!(/[a-zA-Z]/.test(exclusionsElement.value))) {
+        if (!(/[a-zA-Z0-9]/.test(exclusionsElement.value))) {
             // If empty, set the value to the input word
             exclusionsElement.value = word;
         } else {
-            // If not empty, append the input word with a comma separator
-            exclusionsElement.value = exclusionsElement.value + ', ' + word;
+            // If not empty, append the input word
+            exclusionsElement.value = exclusionsElement.value + ' ' + word;
         }
 
       listItems.forEach(function(listItem) {
