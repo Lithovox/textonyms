@@ -12,6 +12,11 @@
     color: #333;
     line-height: 1.6;
     margin-top:2rem;
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
   }
   
   .container {
@@ -75,6 +80,7 @@
 ul {
     font-size: 1.5rem;
     line-height: 2;
+    margin-bottom: 2rem;
 }
 
 span {
@@ -88,6 +94,15 @@ span {
 span:hover {
     background-color: #e6baba;
 }
+
+footer {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    border-top: 1px solid #dee2e6;
+    margin-top: auto;
+  }
 
 /* Responsive styles */
 @media (max-width: 768px) {

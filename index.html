@@ -10,9 +10,10 @@
 <body>
   <h1>Textonyms</h1>
   <h2>Convert Phone Number to Words</h2>
+
   <form id="phone-number-form">
-    <label for="phone-number">Enter a phone number (digits only):</label>
-    <input type="text" id="phone-number" name="phone-number" pattern="[0-9]{1,}" value="9327483" required>
+    <label for="phone-number">Enter a phone number:</label>
+    <input type="text" id="phone-number" name="phone-number" value="9327483" required>
 
     <label for="exclusions">Optional: Enter words to remove from the results (separated by commas), or click any unwanted words in the results below to remove them.</label>
     <textarea id="exclusions" name="exclusions" optional></textarea>
@@ -31,7 +32,7 @@
 
     form.addEventListener('submit', (event) => {
         event.preventDefault();
-        const phoneNumber = form.elements['phone-number'].value;
+        const phoneNumber = stringToPhoneNumber(form.elements['phone-number'].value);
         const excludedWords = form.elements['exclusions'].value;
 
         const composedStrings = sortStringsBySpaces(removeSentencesWithWords(findComposedStringsFromPhoneNumber(phoneNumber, englishWords), excludedWords.toUpperCase()));
@@ -76,5 +77,9 @@
     }
   });
   </script>
+
+<footer>
+    <p>Phone numbers are processed on your device and are never saved or transmitted online.</p>
+  </footer>
 </body>
 </html>
