@@ -23,22 +23,35 @@
   </form>
   <br>
   <u><h2 id="resultsHeader">Results:</h2></u>
+
   <ul id="composed-strings"><li>Enter a phone number and click "Find Word Combinations" to begin!</li></ul>
+
+    <progress id="progress-bar" max="1" value="0" style="visibility: hidden;"></progress>
 
   <script src="wordList.js"></script>
   <script src="index.js"></script>
   <script>
     const form = document.getElementById('phone-number-form');
     const composedStringsList = document.getElementById('composed-strings');
+    const progressBar = document.getElementById('progress-bar');
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault();
+    // web worker for resource-hungry number-word conversion task
+    const worker = new Worker ('worker.js');
+
+    worker.onmessage = (event) => {
+      if (event.data.progress) {
+        progressBar.value = event.data.progress;
+
+      } else if (event.data.composedStrings) {
         const phoneNumber = stringToPhoneNumber(form.elements['phone-number'].value);
-        const excludedWords = form.elements['exclusions'].value;
+        const excludedWords = form.elements['exclusions'].value; 
 
-        const composedStrings = sortStringsBySpaces(removeSentencesWithWords(findComposedStringsFromPhoneNumber(phoneNumber, englishWords), excludedWords.toUpperCase()));
-
+        //sort results and filter out user excluded words
+        let composedStrings = event.data.composedStrings;
+        composedStrings = sortStringsBySpaces(removeSentencesWithWords(composedStrings, excludedWords.toUpperCase()));
         composedStringsList.innerHTML = '';
+
+        //give special messages when no results found
         if (composedStrings.length == 0) {
             if (phoneNumber.includes("0") || phoneNumber.includes("1"))
             {
@@ -48,15 +61,35 @@
                 composedStringsList.innerHTML = 'No results found :(';
             }
         } else {
-        
+            //otherwise display the formatted results
             for (const str of composedStrings) {
                 const listItem = document.createElement('li');
                 listItem.innerHTML = wrapWordsInSpan(capitalizeFirstLetterOfEachWord(str));
                 composedStringsList.appendChild(listItem);
             }
-            }
+        }
+        //update result counter display
         document.getElementById("resultsHeader").textContent = "Results: " + document.getElementById("composed-strings").getElementsByTagName("li").length;
+
+        //reset and hide progress bar
+        progressBar.style = "visibility: hidden";
+        progressBar.value = 0;
+    
+      }
+    };
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const phoneNumber = stringToPhoneNumber(form.elements['phone-number'].value);
+
+        composedStringsList.innerHTML = '' //clears visual output
+        
+        progressBar.style = "visibility: visible"; //show progress bar
+        document.getElementById("resultsHeader").textContent = "Results: ";//reset result counter display
+        worker.postMessage({ phoneNumber, words: englishWords}); //start web worker processing
     });
+
     document.addEventListener('click', function(event) {
     if (event.target.tagName.toLowerCase() === 'span') {
 
