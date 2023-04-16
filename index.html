@@ -22,7 +22,7 @@
     <button type="submit">Find Word Combinations</button>
   </form>
   <br>
-  <u><h2 id="resultsHeader">Results:</h2></u>
+  <u><h2 id="resultsHeader"></h2></u>
 
   <ul id="composed-strings"><li>Enter a phone number and click "Find Word Combinations" to begin!</li></ul>
 
@@ -34,6 +34,7 @@
     const form = document.getElementById('phone-number-form');
     const composedStringsList = document.getElementById('composed-strings');
     const progressBar = document.getElementById('progress-bar');
+    const resultsHeader = document.getElementById("resultsHeader");
 
     // web worker for resource-hungry number-word conversion task
     const worker = new Worker ('worker.js');
@@ -69,7 +70,7 @@
             }
         }
         //update result counter display
-        document.getElementById("resultsHeader").textContent = "Results: " + document.getElementById("composed-strings").getElementsByTagName("li").length;
+        resultsHeader.textContent = "Showing " + composedStringsList.getElementsByTagName("li").length + " matches for: \"" + phoneNumber +"\"";
 
         //reset and hide progress bar
         progressBar.style = "visibility: hidden";
@@ -86,7 +87,7 @@
         composedStringsList.innerHTML = '' //clears visual output
         
         progressBar.style = "visibility: visible"; //show progress bar
-        document.getElementById("resultsHeader").textContent = "Results: ";//reset result counter display
+        resultsHeader.textContent = "Calculating...";//reset result counter display
         worker.postMessage({ phoneNumber, words: englishWords}); //start web worker processing
     });
 
@@ -113,7 +114,7 @@
           listItem.remove();
         }
       });
-      document.getElementById("resultsHeader").textContent = "Results: " + document.getElementById("composed-strings").getElementsByTagName("li").length;
+      resultsHeader.textContent = "Showing " + composedStringsList.getElementsByTagName("li").length + " matches for: \"" + phoneNumber +"\"";
     }
   });
   </script>
