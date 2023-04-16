@@ -72,4 +72,27 @@ function stringToPhoneNumber(input) {
   return phoneNumber;
 }
 
+//helper function returns number of possible variations per phone number digit
+function getNumLetters(digit) {
+  if (digit === '7' || digit === '9') {
+    return 4;
+  } else if (digit >= '2' && digit <= '9') {
+    return 3;
+  } else {
+    return 1;
+  }
+}
+
+//calculate number of permutations of phone words in a phone number
+function phoneWordPermutations(phoneNumber) {
+  let permutations = 1;
+  for (let i = 0; i < phoneNumber.length; i++) {
+    const numLetters = getNumLetters(phoneNumber[i]);
+    if (numLetters > 0) {
+      permutations *= numLetters;
+    }
+  }
+  return permutations;
+}
+
 

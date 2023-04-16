@@ -70,7 +70,7 @@
             }
         }
         //update result counter display
-        resultsHeader.textContent = "Showing " + composedStringsList.getElementsByTagName("li").length + " matches for \"" + phoneNumber +"\"";
+        resultsHeader.textContent = "Showing " + composedStringsList.getElementsByTagName("li").length + " matches for \"" + phoneNumber +"\":";
 
         //reset and hide progress bar
         progressBar.style = "visibility: hidden";
@@ -87,7 +87,7 @@
         composedStringsList.innerHTML = '' //clears visual output
         
         progressBar.style = "visibility: visible"; //show progress bar
-        resultsHeader.textContent = "Calculating...";//reset result counter display
+        resultsHeader.textContent = "Analyzing " + phoneWordPermutations(phoneNumber).toLocaleString() + " ways to express \"" + phoneNumber + "\"...";//reset result counter display
         worker.postMessage({ phoneNumber, words: englishWords}); //start web worker processing
     });
 
@@ -114,7 +114,7 @@
           listItem.remove();
         }
       });
-      resultsHeader.textContent = "Showing " + composedStringsList.getElementsByTagName("li").length + " matches for \"" + stringToPhoneNumber(form.elements['phone-number'].value) +"\"";
+      resultsHeader.textContent = "Showing " + composedStringsList.getElementsByTagName("li").length + " matches for \"" + stringToPhoneNumber(form.elements['phone-number'].value) +"\":";
     }
   });
   </script>

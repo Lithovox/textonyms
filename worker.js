@@ -76,6 +76,7 @@ function getLetterCombinations(digits) {
     const composedStrings = [];
   
     const totalCombinations = letterCombinations.length;
+    console.log(totalCombinations);
     let combinationsProcessed = 0;
   
     for (const str of letterCombinations) {
