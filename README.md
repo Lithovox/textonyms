@@ -1,5 +1,5 @@
 # textonyms
-A webpage that converts a phone number or phone word to its other equivalent phone words.
+A webpage that converts a phone number or phone word to its other equivalent phone words. Try it out [here](https://textonyms.com).
 
 On a phone keypad, each of the digits corresponds to a set of letters:
 0: "0",
