@@ -1,3 +1,5 @@
+// file here is full of helper functions, main js is in html file.
+
 function sortStringsBySpaces(arr) {
   // Helper function to count spaces in a string
   function countSpaces(str) {

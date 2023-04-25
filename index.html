@@ -28,6 +28,8 @@
 
     <progress id="progress-bar" max="1" value="0" style="visibility: hidden;"></progress>
 
+
+
   <script src="wordList.js"></script>
   <script src="index.js"></script>
   <script>
@@ -53,14 +55,8 @@
         composedStringsList.innerHTML = '';
 
         //give special messages when no results found
-        if (composedStrings.length == 0) {
-            if (phoneNumber.includes("0") || phoneNumber.includes("1"))
-            {
-                composedStringsList.innerHTML = 'No results found, \n possibly since 0 and 1 don\'t contain any letters :(';
-            } else
-            {
-                composedStringsList.innerHTML = 'No results found :(';
-            }
+        if (composedStrings.length == 0) { 
+                composedStringsList.innerHTML = '<li>No results found :( <br> <br> <u>Factors to watch out for:</u><i><ul><li>0 and 1 don\'t contain any letters</li><li>9 (wxyz) doesn\'t produce many words</li><li>5, 7, and 9 don\'t contain vowels</li></ul></i></li>';
         } else {
             //otherwise display the formatted results
             for (const str of composedStrings) {
@@ -79,6 +75,7 @@
       }
     };
 
+    //clicking submit starts the web worker conversion of the phone number input
     form.addEventListener('submit', (event) => {
         event.preventDefault();
 
@@ -91,6 +88,7 @@
         worker.postMessage({ phoneNumber, words: englishWords}); //start web worker processing
     });
 
+    // checks if the user has clicked any words in the result, to remove them from the results list
     document.addEventListener('click', function(event) {
     if (event.target.tagName.toLowerCase() === 'span') {
 
@@ -120,7 +118,7 @@
   </script>
 
 <footer>
-    <p>Phone numbers are processed on your device and are never saved or transmitted online. <a href="https://github.com/Lithovox/textonyms">View on GitHub</a>.</p>
+    <p>Phone numbers are processed on your device and are never saved or transmitted online. <a href="https://github.com/TrivialSolution/textonyms">View on GitHub</a>.</p>
   </footer>
 </body>
 </html>
