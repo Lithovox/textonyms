@@ -1,137 +1,140 @@
-/* Global styles */
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #ffffff;
-    color: #333;
-    line-height: 1.6;
-    margin-top:2rem;
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-  }
-  
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    text-align: center;
-  }
-  
-  h2 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  
-  label{
-    display: block;
-    font-size: 1.2rem;
-    margin:auto;
-    margin-bottom: 0.5rem;
-    width:40%;
-  }
-  
-  input {
-    width: 50%;
-    padding: 10px;
-    margin:auto;
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-  }
+/* index.css */
 
-  textarea {
-    display: block;
-    font-size: 1.2rem;
-    width: 50%;
-    padding: 10px;
-    margin:auto;
-    margin-bottom: 1rem;
-    resize: vertical;
-    word-wrap: break-word;
-  }
-  
-  button {
-    display: inline-block;
-    font-size: 1.1rem;
-    padding: 10px 20px;
-    background-color: #333;
-    color: #fff;
-    cursor: pointer;
-    border: none;
-    margin: 1rem;
-    transition: background-color 0.3s;
-  }
-  
-  button:hover {
-    background-color: #666;
-  }
+/* Reset some default styles */
+body, ul, h1, h2 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f2f2f2;
+  color: #333;
+  line-height: 1.6;
+  font-size: 18px; /* Increase base font size */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* Container */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Typography */
+h1 {
+  font-size: 3rem; /* Increase heading font size */
+  color: #3498db; /* Update to light blue color */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.8rem; /* Increase subheading font size */
+  color: rgb(51, 152, 219); /* Update to light blue color */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Form and inputs */
+form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  width: 90%;
+}
+
+input[type="text"], textarea {
+  width: 90%;
+  padding: 10px;
+  font-size: 18px; /* Increase input font size */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+button {
+  display: inline-block;
+  background-color: #3498db; /* Update to light blue color */
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 18px; /* Increase button font size */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #2980b9; /* Update hover color */
+}
+
+/* Results and progress bar */
+#resultsHeader {
+  margin-bottom: 20px;
+  text-align: center;
+}
 
 ul {
-    font-size: 1.5rem;
-    line-height: 2;
+  list-style: none;
+}
+
+li {
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 5px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  font-size: 1.5rem; /* Increase result item font size */
+  text-align: center;
+}
+
+progress {
+  display: block;
+  width: 100%;
+  height: 20px;
+  margin-bottom: 20px;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: auto;
+  padding: 1rem;
+}
+
+footer p {
+  font-size: 0.8rem;
+}
+
+footer a {
+  color: #3498db; /* Update link color */
+}
+
+footer a:hover {
+  text-decoration: underline;
 }
 
 span {
-    background-color: #f0f0f0; /* light gray background */
-    cursor: pointer; /* change cursor to pointer */
-    margin:5px;
-
-    border-radius: 3px;
-    padding: 5px;
-  }
-span:hover {
-    background-color: #e6baba;
+  background-color: #eeeeee;
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 3px;
+  padding: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
-footer {
-    background-color: #f8f9fa;
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-    border-top: 1px solid #dee2e6;
-    margin-top: auto;
-  }
-
-  progress {
-    width: 60%;
-    margin: auto;
-    height: 2rem;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-  }
-
-/* Responsive styles */
-@media (max-width: 768px) {
-    h1 {
-      font-size: 1.5rem;
-    }
-  
-    h2 {
-      font-size: 1.2rem;
-    }
-  
-    label,
-    input,
-    textarea {
-      font-size: 1.2rem;
-      width: 80%
-    }
-
-    ul, 
-    span {
-        font-size: 1.2rem;
-    }
-  }
+span:hover {
+  background-color: #e6baba;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+}

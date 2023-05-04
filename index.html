@@ -9,6 +9,7 @@
   <title>Textonyms</title>
 </head>
 <body>
+  <div class="container">
   <h1>Textonyms</h1>
   <h2>Convert Phone Numbers to Words</h2>
 
@@ -16,7 +17,7 @@
     <label for="phone-number">Enter a phone number (or phone word) in any format:</label>
     <input type="text" id="phone-number" name="phone-number" placeholder="e.g. 932-7483" required>
 
-    <label for="exclusions">Optional: Enter words to remove from the results, or click any unwanted words in the results below to remove them.</label>
+    <label for="exclusions">Optional: Enter words to exclude them from the results, or click any unwanted words in the results below to remove them.</label>
     <textarea id="exclusions" name="exclusions" placeholder="e.g. word1, word2"optional></textarea>
 
     <button type="submit">Find Word Combinations</button>
@@ -116,9 +117,10 @@
     }
   });
   </script>
-
+</div>
 <footer>
     <p>Phone numbers are processed on your device and are never saved or transmitted online. <a href="https://github.com/TrivialSolution/textonyms">View on GitHub</a>.</p>
   </footer>
+
 </body>
 </html>
