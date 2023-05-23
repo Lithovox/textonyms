@@ -62,12 +62,13 @@
             //otherwise display the formatted results
             for (const str of composedStrings) {
                 const listItem = document.createElement('li');
+                listItem.className = "permutation";
                 listItem.innerHTML = wrapWordsInSpan(capitalizeFirstLetterOfEachWord(str));
                 composedStringsList.appendChild(listItem);
             }
         }
         //update result counter display
-        resultsHeader.textContent = "Showing " + composedStringsList.getElementsByTagName("li").length + " matches for \"" + phoneNumber +"\":";
+        resultsHeader.textContent = "Showing " + composedStringsList.getElementsByClassName("permutation").length + " matches for \"" + phoneNumber +"\":";
 
         //reset and hide progress bar
         progressBar.style = "visibility: hidden";
